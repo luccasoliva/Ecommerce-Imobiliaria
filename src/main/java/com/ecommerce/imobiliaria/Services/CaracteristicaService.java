@@ -1,7 +1,6 @@
 package com.ecommerce.imobiliaria.Services;
 
 
-import com.ecommerce.imobiliaria.Exceptions.EntityNotFoundException;
 import com.ecommerce.imobiliaria.Models.Caracteristica;
 import com.ecommerce.imobiliaria.Models.Imovel;
 import com.ecommerce.imobiliaria.Repositories.CaracteristicaRepository;
@@ -9,6 +8,7 @@ import com.ecommerce.imobiliaria.Repositories.ImovelRepository;
 import lombok.Builder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +31,7 @@ public class CaracteristicaService {
         return caracteristica.orElseThrow( ()-> new EntityNotFoundException("Caracteristica não encontrada"));
     }
 
-    public List<Caracteristica> MostrarCaracteristicaPeloIdImovel(Integer idImovel){
+    public List<Caracteristica> mostrarCaracteristicaPeloIdImovel(Integer idImovel){
         return caracteristicaRepository.MostrarCaracteristicaPeloIdImovel(idImovel);
 
     }

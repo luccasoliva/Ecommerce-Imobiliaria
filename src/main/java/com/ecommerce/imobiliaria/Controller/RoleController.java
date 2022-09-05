@@ -39,7 +39,7 @@ public class RoleController {
         return ResponseEntity.created(novaUri).body(role);
     }
 
-    //Salvar role no user
+
     @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
     @PostMapping("/roles/{roleName}/{username}")
     public ResponseEntity<Void> salvarRoleNoUser(@PathVariable String roleName, @PathVariable String username){

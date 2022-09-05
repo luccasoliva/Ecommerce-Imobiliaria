@@ -2,14 +2,10 @@ package com.ecommerce.imobiliaria.Controller;
 
 
 import com.ecommerce.imobiliaria.Models.Caracteristica;
-import com.ecommerce.imobiliaria.Models.Imovel;
 import com.ecommerce.imobiliaria.Services.CaracteristicaService;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authorization.AuthorityAuthorizationManager;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -24,7 +20,7 @@ public class CaracteristicaController {
 
     private CaracteristicaService caracteristicaService;
 
-    //GET habilitado para ser acessado por todos
+
 
     @GetMapping("/caracts")
     public List<Caracteristica> mostrarCaracteristicas(){
@@ -38,8 +34,8 @@ public class CaracteristicaController {
     }
 
     @GetMapping("/caracts/imovel/{idImovel}")
-    public List<Caracteristica> MostrarCaracteristicaPeloIdImovel(@PathVariable Integer idImovel){
-        return caracteristicaService.MostrarCaracteristicaPeloIdImovel(idImovel);
+    public List<Caracteristica> mostrarCaracteristicaPeloIdImovel(@PathVariable Integer idImovel){
+        return caracteristicaService.mostrarCaracteristicaPeloIdImovel(idImovel);
     }
 
 
@@ -58,14 +54,14 @@ public class CaracteristicaController {
         return ResponseEntity.ok().build();
     }
 
-//    @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
     @DeleteMapping("/caracts/imovel/{idImovel}")
     public ResponseEntity<Void> removerCaracteristicasDoImovel(@PathVariable Integer idImovel){
         caracteristicaService.removerCaracteristicasDoImovel(idImovel);
         return ResponseEntity.ok().build();
     }
 
-//    @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
+   @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
     @PostMapping("/caracts/{idImovel}/{idCarac}")
     public ResponseEntity<Void> addCaracteristicaToImovel(@PathVariable Integer idImovel, @PathVariable Integer idCarac) {
         caracteristicaService.addCaracteristicaToImovel(idImovel, idCarac);

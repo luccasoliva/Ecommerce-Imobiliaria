@@ -15,10 +15,10 @@ public class RoleService {
  private final RoleRepository roleRepository;
  private final UserRepository userRepository;
 
-    //SaveRole
-    public Role novaRole(Role role) {
+
+    public void novaRole(Role role) {
         role.setId(role.getId());
-        return roleRepository.save(role);
+        roleRepository.save(role);
     }
 
     public List<Role> listarRole() {
@@ -29,7 +29,7 @@ public class RoleService {
         return roleRepository.findById(id).get();
     }
 
-    //AddRoleToUser
+
     public void salvarRoleNoUser(String roleName, String username) {
         Role role = roleRepository.findByName(roleName);
         User user = userRepository.findByUsername(username).orElse(null);

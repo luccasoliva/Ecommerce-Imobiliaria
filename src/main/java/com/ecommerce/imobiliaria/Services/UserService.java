@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.lang.constant.Constable;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.*;
 public class UserService implements UserDetailsService {
 
     private static final String USER_NOT_FOUND_MSG = "Usuário: %s não encontrado";
+    private static final String USER_NOT_FOUND_MSG_ID = "Usuário: não encontrado";
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -48,15 +50,13 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
-                 if(user== null) {
+                 if(user.isEmpty()) {
                      throw new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG, username));
                  } else {
                     log.info("Usuário: {} encontrado", username);
                  }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                 user.get().getRoles().forEach(role -> {
-                     authorities.add(new SimpleGrantedAuthority(role.getName()));
-                 });
+                 user.get().getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
                  return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), authorities);
     }
 
@@ -96,26 +96,26 @@ public class UserService implements UserDetailsService {
 
     }
 
-    //promover usuário para admin
+
     public User promoverParaAdmin(Integer idUser) {
         User user = userRepository.findById(idUser).orElse(null);
         if (user != null) {
             roleService.salvarRoleNoUser("ADMIN", user.getUsername());
             userRepository.save(user);
         } else {
-            throw new IllegalStateException("Usuário não encontrado");
+            throw new EntityNotFoundException(USER_NOT_FOUND_MSG_ID);
         }
         return user;
     }
 
-    //promover CONSUMIDOR para VENDEDOR
+
     public void promoverParaVendedor(Integer idUser) {
         User user = userRepository.findById(idUser).orElse(null);
         if (user != null) {
             roleService.salvarRoleNoUser("VENDEDOR", user.getUsername());
             userRepository.save(user);
         } else {
-            throw new IllegalStateException("Usuário não encontrado");
+            throw new EntityNotFoundException(USER_NOT_FOUND_MSG_ID);
         }
     }
 
@@ -131,19 +131,19 @@ public class UserService implements UserDetailsService {
             user.getRoles().clear();
             userRepository.delete(user);
         } else {
-            throw new IllegalStateException("Usuário não encontrado");
+            throw new EntityNotFoundException(USER_NOT_FOUND_MSG_ID);
         }
     }
 
     public User findById(Integer idUser) {
-        return userRepository.findById(idUser).orElseThrow( () -> new IllegalStateException("Usuário não encontrado"));
+        return userRepository.findById(idUser).orElseThrow( () -> new EntityNotFoundException(USER_NOT_FOUND_MSG_ID));
     }
 
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow( () -> new IllegalStateException("Usuário não encontrado"));
+        return userRepository.findByUsername(username).orElseThrow( () -> new EntityNotFoundException(USER_NOT_FOUND_MSG_ID));
     }
 
-    //update user
+
     public User updateUser(User user) {
         User userExistente = userRepository.findById(user.getIdUser()).orElse(null);
         if (userExistente != null) {
@@ -158,30 +158,30 @@ public class UserService implements UserDetailsService {
             user.setUsername(userExistente.getUsername());
             return userRepository.save(user);
         } else {
-            throw new IllegalStateException("Usuário não encontrado");
+            throw new EntityNotFoundException(USER_NOT_FOUND_MSG_ID);
         }
     }
 
-    //findUserByRoleId
+
     public List<User> findUsersByRoleId(Integer idRole) {
         return userRepository.findUserByRoleId(idRole);
     }
 
-    //set user to disabled
+
     public User disabilitarHabilitarConta(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow( () -> new IllegalStateException("Usuário não encontrado"));
+        User user = userRepository.findByUsername(username).orElseThrow( () -> new EntityNotFoundException(USER_NOT_FOUND_MSG_ID));
         user.setEnabled(!user.isEnabled());
         userRepository.save(user);
         return null;
     }
 
-    //findUsersRegistradoPorMes
+
     public List<User> findUsersRegistradoPorMes(Integer idRole) {
         return (List<User>) userRepository.findUsersRegistradoPorMes(idRole);
     }
 
 
-    //findTotalSignedUpByRole
+
     public Integer findTotalSignedUpByRole(Integer idRole) {
         return userRepository.findTotalSignedUpByRole(idRole);
     }

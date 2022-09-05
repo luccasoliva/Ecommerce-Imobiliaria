@@ -21,8 +21,7 @@ public class EnderecoController {
     @PreAuthorize("hasAnyAuthority('CONSUMIDOR')")
     @GetMapping("/enderecos")
     public List<Endereco> mostrarTodosEnderecos() {
-        List<Endereco> enderecos = enderecoService.mostrarTodosEnderecos();
-        return enderecos;
+        return enderecoService.mostrarTodosEnderecos();
     }
 
     @GetMapping("/enderecos/{idEndereco}")
@@ -39,7 +38,7 @@ public class EnderecoController {
         return ResponseEntity.created(novaURI).body(endereco);
     }
 
-//    @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
     @PostMapping("/enderecos/imovel/{idImovel}")
     public ResponseEntity<Endereco> cadastrarEnderecoImovel(@RequestBody Endereco endereco, @PathVariable Integer idImovel) {
         endereco = enderecoService.cadastrarEnderecoImovel(endereco, idImovel);
@@ -47,7 +46,7 @@ public class EnderecoController {
         return ResponseEntity.created(novaURI).body(endereco);
     }
 
-//    @PreAuthorize("hasAnyAuthority('CONSUMIDOR')")
+    @PreAuthorize("hasAnyAuthority('CONSUMIDOR')")
     @PutMapping("/enderecos/{idEndereco}")
     public ResponseEntity<Endereco> editarEndereco(@PathVariable Integer idEndereco, @RequestBody Endereco endereco) {
         endereco.setIdEndereco(idEndereco);

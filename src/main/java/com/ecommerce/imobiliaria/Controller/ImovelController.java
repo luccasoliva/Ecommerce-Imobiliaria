@@ -24,7 +24,7 @@ public class ImovelController {
 
     @PostMapping("/imoveisFiltrar")
     public List<Imovel> filtrar(@RequestBody Imovel imovel){
-        return imovelService.filtrar(imovel); // "{\"success\":1}";
+        return imovelService.filtrar(imovel);
     }
 
     @GetMapping("/imoveis")
@@ -40,96 +40,81 @@ public class ImovelController {
 
     @GetMapping("/imoveisVendedor")
     public List<Imovel> mostrarImovelVendedor(@RequestParam("idVendedor") Integer idVendedor){
-        List<Imovel> imoveis = imovelService.mostrarImovelVendedor(idVendedor);
-        return imoveis;
+        return imovelService.mostrarImovelVendedor(idVendedor);
     }
 
     @GetMapping("/imoveis/ativo/{idVendedor}")
     public List<Imovel> mostrarImovelAtivo(@PathVariable Integer idVendedor){
-        List<Imovel> imoveis = imovelService.mostrarImovelAtivo(idVendedor);
-        return imoveis;
+        return imovelService.mostrarImovelAtivo(idVendedor);
     }
 
     @GetMapping("/imoveis/inativo/{idVendedor}")
     public List<Imovel> mostrarImovelInativo(@PathVariable Integer idVendedor){
-        List<Imovel> imoveis = imovelService.mostrarImovelInativo(idVendedor);
-        return imoveis;
+        return imovelService.mostrarImovelInativo(idVendedor);
     }
 
 
     @GetMapping("/imoveisContratoAluguel")
     public List<Imovel> mostrarImovelContratoAluguel(@RequestParam("contratoAluguel") Boolean contratoAluguel){
-        List<Imovel> imoveis = imovelService.mostrarImovelContratoAluguel(contratoAluguel);
-        return imoveis;
+        return imovelService.mostrarImovelContratoAluguel(contratoAluguel);
     }
 
     @GetMapping("/imoveisContratoVenda")
     public List<Imovel> mostrarImovelContratoVenda(@RequestParam("contratoVenda") Boolean contratoVenda){
-        List<Imovel> imoveis = imovelService.mostrarImovelContratoVenda(contratoVenda);
-        return imoveis;
+        return imovelService.mostrarImovelContratoVenda(contratoVenda);
     }
 
     @GetMapping("/imoveisValorAluguel")
     public List<Imovel> mostrarImovelValorAluguel(@RequestParam("valorAluguelMax") Double valorAluguel){
-        List<Imovel> imoveis = imovelService.mostrarImovelValorAluguel(valorAluguel);
-        return imoveis;
+        return imovelService.mostrarImovelValorAluguel(valorAluguel);
     }
 
     @GetMapping("/imoveisValorVenda")
     public List<Imovel> mostrarImovelValorVenda(@RequestParam("valorVendaMax") Double valorVenda){
-        List<Imovel> imoveis = imovelService.mostrarImovelValorVenda(valorVenda);
-        return imoveis;
+        return imovelService.mostrarImovelValorVenda(valorVenda);
     }
 
     @GetMapping("/imoveisPelaArea")
     public List<Imovel> mostrarImovelPelaArea(@RequestParam("area") Double area){
-        List<Imovel> imoveis = imovelService.mostrarImovelPelaArea(area);
-        return imoveis;
+        return imovelService.mostrarImovelPelaArea(area);
     }
 
     @GetMapping("/imoveisPorQuarto")
     public List<Imovel> mostrarImovelQuarto(@RequestParam("quartos") Integer quartos){
-        List<Imovel> imoveis = imovelService.mostrarImovelQuarto(quartos);
-        return imoveis;
+        return imovelService.mostrarImovelQuarto(quartos);
     }
 
     @GetMapping("/imoveisPorSuite")
     public List<Imovel> mostrarImovelSuite(@RequestParam("suite") Integer suite){
-        List<Imovel> imoveis = imovelService.mostrarImovelSuite(suite);
-        return imoveis;
+        return imovelService.mostrarImovelSuite(suite);
     }
 
     @GetMapping("/imoveisPorBanheiro")
     public List<Imovel> mostrarImovelBanheiro(@RequestParam("banheiros") Integer banheiros){
-        List<Imovel> imoveis = imovelService.mostrarImovelBanheiro(banheiros);
-        return imoveis;
+        return imovelService.mostrarImovelBanheiro(banheiros);
     }
 
     @GetMapping("/imoveisPorVaga")
     public List<Imovel> mostrarImovelVaga(@RequestParam("vagas") Integer vagas){
-        List<Imovel> imoveis = imovelService.mostrarImovelVaga(vagas);
-        return imoveis;
+        return imovelService.mostrarImovelVaga(vagas);
     }
 
     @GetMapping("/imoveisPorFinalidade")
     public List<Imovel> mostrarImovelFinalidade(@RequestParam("finalidadeImovel") String finalidadeImovel){
-        List<Imovel> imoveis = imovelService.mostrarImovelFinalidade(finalidadeImovel);
-        return imoveis;
+        return imovelService.mostrarImovelFinalidade(finalidadeImovel);
     }
 
     @GetMapping("/imoveisPorTipo")
     public List<Imovel> mostrarImovelTipo(@RequestParam("tipoImovel") String tipoImovel){
-        List<Imovel> imoveis = imovelService.mostrarImovelTipo(tipoImovel);
-        return imoveis;
-    }
-    //findImoveisPerMOnth
-    @GetMapping("/imoveis/mes")
-    public List<Imovel> mostrarImovelMes(){
-        List<Imovel> imoveis = imovelService.findImoveisPerMOnth();
-        return imoveis;
+        return imovelService.mostrarImovelTipo(tipoImovel);
     }
 
-    //countImoveis
+    @GetMapping("/imoveis/mes")
+    public List<Imovel> mostrarImovelMes(){
+        return imovelService.findImoveisPerMOnth();
+    }
+
+
     @GetMapping("/imoveis/total")
     public Integer countImoveis(){
         return imovelService.countImoveis();

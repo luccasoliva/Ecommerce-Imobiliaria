@@ -1,6 +1,5 @@
 package com.ecommerce.imobiliaria.Services;
 
-import com.ecommerce.imobiliaria.Exceptions.EntityNotFoundException;
 import com.ecommerce.imobiliaria.Models.Enums.StatusVisita;
 import com.ecommerce.imobiliaria.Models.Imovel;
 import com.ecommerce.imobiliaria.Models.User;
@@ -12,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,30 +22,31 @@ import java.util.Optional;
 @Service
 @Transactional
 public class VisitaService {
+    private static final String MSG_IMOVEL_NAO_ENCONTRADO = "Imóvel não encontrado";
+    private static final String MSG_VISITA_NAO_ENCONTRADA = "Visita não encontrada";
 
     private VisitaRepository visitaRepository;
     private ImovelRepository imovelRepository;
     private UserRepository userRepository;
 
-    //getAllVisitas
+
     public List<Visita> getAllVisitas() {
         return visitaRepository.findAll();
     }
 
-    //getVisitaById
     public Visita getVisitaById(Integer id) {
         return visitaRepository.findById(id).get();
     }
 
-    //getVisitaByImovelId
+
     public List<Visita> getVisitaByImovelId(Integer id) {
         return visitaRepository.findByImovelId(id);
     }
 
 
-    //saveVisita
+
     public Visita saveVisita(Visita visita, Integer idUserConsumidor,Integer idImovel) {
-        Imovel imovel = imovelRepository.findById(idImovel).orElseThrow(() -> new EntityNotFoundException("Imóvel não encontrado"));
+        Imovel imovel = imovelRepository.findById(idImovel).orElseThrow(() -> new EntityNotFoundException(MSG_IMOVEL_NAO_ENCONTRADO));
         Optional<User> userConsumidor = Optional.ofNullable(userRepository.findById(idUserConsumidor).orElseThrow(
                 () -> new EntityNotFoundException("Consumidor não encontrado")));
         Optional<User> userVendedor = Optional.ofNullable(userRepository.findById(imovel.getUserVendedor().getIdUser()).orElseThrow(
@@ -67,26 +68,26 @@ public class VisitaService {
 
 
 
-    //update visita
+
     public Visita updateVisita(Visita visita, Integer idVisita ) {
-        Visita visitaAtual = visitaRepository.findById(idVisita).orElseThrow(() -> new EntityNotFoundException("Visita não encontrada"));
+        Visita visitaAtual = visitaRepository.findById(idVisita).orElseThrow(() -> new EntityNotFoundException(MSG_VISITA_NAO_ENCONTRADA));
         visitaAtual.setDataVisita(visita.getDataVisita());
         visitaAtual.setHorarioVisita(visita.getHorarioVisita());
 
         return visitaRepository.save(visitaAtual);
     }
 
-    //delete visita
+
     public void deleteVisita(Integer id) {
         Visita visita = visitaRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Visita não encontrada"));
+                () -> new EntityNotFoundException(MSG_VISITA_NAO_ENCONTRADA));
         visitaRepository.delete(visita);
     }
 
-    //Setar status de visita
+
     public Visita setStatus(Integer id, String status) {
         Visita visita = visitaRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Visita não encontrada"));
+                () -> new EntityNotFoundException(MSG_VISITA_NAO_ENCONTRADA));
         switch (status) {
             case "PENDENTE" -> visita.setStatusVisita(StatusVisita.PENDENTE);
             case "CONFIRMADO" -> visita.setStatusVisita(StatusVisita.CONFIRMADO);
@@ -97,17 +98,17 @@ public class VisitaService {
     }
 
 
-    //getVisitasByUserConsumidor
+
     public List<Visita> findByidConsumidor(Integer idUserConsumidor) {
         return visitaRepository.findByIdConsumidor(idUserConsumidor);
     }
 
-    //getVisitasByUserVendedor
+
     public List<Visita> findByidVendedor(Integer idUserVendedor) {
         return visitaRepository.findByIdVendedor(idUserVendedor);
     }
 
-    //findByStatus
+
     public List<Visita> findByStatus(String status) {
         try {
             return visitaRepository.findByStatus(status);
@@ -116,26 +117,26 @@ public class VisitaService {
         }
     }
 
-    //findByStatusAndIdVendedor
+
     public List<Visita> findByStatusAndIdVendedor(String status, Integer idVendedor) {
 
             return visitaRepository.findByStatusAndIdVendedor(status, idVendedor);
 
     }
 
-    //findByStatusAndIdConsumidor
+
     public List<Visita> findByStatusAndIdConsumidor(String status, Integer idConsumidor) {
 
         return visitaRepository.findByStatusAndIdConsumidor(status, idConsumidor);
 
     }
 
-    //findVisitasPorMes
+
     public List<Visita> findVisitasPorMes() {
         return (List<Visita>) visitaRepository.findVisitasPorMes();
     }
 
-    //findTotalVisitas
+
     public Integer findTotalVisitas() {
         return visitaRepository.findTotalVisitas();
     }

@@ -117,7 +117,6 @@ public class User implements UserDetails {
         return enabled;
     }
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Visitas> visitas = new ArrayList<>();
+
 
 }

@@ -34,15 +34,6 @@ public class FotoController {
         return fotoService.buscarFotoPorImovel(idImovel);
     }
 
-//    @PostMapping("/fotos/{idImovel}")
-//    public ResponseEntity<Foto> salvarFoto(@RequestBody Foto foto,
-//                                           @PathVariable Integer idImovel){
-//        foto.setIdImovel(idImovel);
-//        foto = fotoService.salvarFoto(foto, idImovel);
-//        URI novaURI = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}")
-//                .buildAndExpand(foto.getId()).toUri();
-//        return ResponseEntity.created(novaURI).body(foto);
-//    }
 
     @PostMapping("/fotos/{idImovel}")
     public ResponseEntity<Foto> salvarFoto(@RequestParam("linkFoto") String linkFoto,

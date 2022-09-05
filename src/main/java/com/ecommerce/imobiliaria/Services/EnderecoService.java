@@ -7,7 +7,6 @@ import com.ecommerce.imobiliaria.Repositories.EnderecoRepository;
 import com.ecommerce.imobiliaria.Repositories.ImovelRepository;
 import com.ecommerce.imobiliaria.Repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -48,8 +47,8 @@ public class EnderecoService {
         return endereco;
     }
 
-    public Endereco editarEndereco(Endereco endereco) {
-        return enderecoRepository.save(endereco);
+    public void editarEndereco(Endereco endereco) {
+        enderecoRepository.save(endereco);
     }
 
 }

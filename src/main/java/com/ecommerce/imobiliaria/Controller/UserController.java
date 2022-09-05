@@ -36,7 +36,7 @@ public class UserController {
         return  userService.verificaIdentificacao(identificacao);
     }
 
-    //findUserByRoleId
+
     @GetMapping("/usuarios/role/{roleId}")
     public List<User> findUserByRoleId(@PathVariable Integer roleId) {
         return userService.findUsersByRoleId(roleId);
@@ -58,24 +58,19 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    //update user
     @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
     @PatchMapping("/usuarios/{username}")
     public ResponseEntity<User> updateUser(@PathVariable String username, @RequestBody User user, Principal principal) {
         Optional<User> userprincipal = userRepository.findByUsername(principal.getName());
-        if (principal.getName().equals(username)) {
+        if (principal.getName().equals(username) || userprincipal.get().getAuthorities().stream().anyMatch(x -> x.getAuthority().equals("ADMIN"))) {
             User userUpdated = userService.updateUser(user);
             return new ResponseEntity<>(userUpdated, HttpStatus.OK);
-        } else if (userprincipal.get().getAuthorities().stream().anyMatch(x -> x.getAuthority().equals("ADMIN"))) {
-            User userUpdated = userService.updateUser(user);
-            return new ResponseEntity<>(userUpdated, HttpStatus.OK);
-        }
-        else {
+        }else {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
 
-    //disabilitarConta
+
     @PreAuthorize("hasAnyAuthority('ADMIN','CONSUMIDOR','VENDEDOR')")
     @PatchMapping("/usuarios/{username}/disable")
     public ResponseEntity<User> disableUser(@PathVariable String username,  Principal principal) {
@@ -95,13 +90,11 @@ public class UserController {
             return new ResponseEntity<>(userUpdated, HttpStatus.OK);
     }
 
-    //findUsersRegistradoPorMes
     @GetMapping("/usuarios/registrados/{roleId}")
     public List<User> findUsersRegistradoPorMes(@PathVariable Integer roleId) {
         return userService.findUsersRegistradoPorMes(roleId);
     }
 
-    //findTotalSignedUpByRole
     @GetMapping("/usuarios/total/{roleId}")
     public Integer findTotalSignedUpByRole(@PathVariable Integer roleId) {
         return userService.findTotalSignedUpByRole(roleId);

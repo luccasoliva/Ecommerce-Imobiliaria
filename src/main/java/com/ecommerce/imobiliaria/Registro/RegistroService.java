@@ -27,7 +27,7 @@ public class RegistroService {
 
 
     @Transactional
-    public String registroConsumidor(RegistroRequest request) {
+    public void registroConsumidor(RegistroRequest request) {
         boolean isValidEmail = emailValidator.test(request.getUsername());
         Optional<User> user = userRepository.findByUsername(request.getUsername());
         if (!isValidEmail) {
@@ -43,14 +43,13 @@ public class RegistroService {
 
         );
         roleService.salvarRoleNoUser("CONSUMIDOR", request.getUsername());
-        String link = "https://api-nossolar.herokuapp.com/imobil/confirmar?token=" + token;
+        String link = "http://localhost:8080/imobil/confirmar?token=" + token;
         emailSender.send(request.getUsername(), buildEmail(request.getNome(), link ));
-        return null;
 
     }
 
     @Transactional
-    public String registroVendedor(RegistroRequest request) {
+    public void registroVendedor(RegistroRequest request) {
         boolean isValidEmail = emailValidator.test(request.getUsername());
         Optional<User> user = userRepository.findByUsername(request.getUsername());
         if (!isValidEmail) {
@@ -67,9 +66,8 @@ public class RegistroService {
         );
         roleService.salvarRoleNoUser("VENDEDOR", request.getUsername());
         roleService.salvarRoleNoUser("CONSUMIDOR", request.getUsername());
-        String link = "https://api-nossolar.herokuapp.com/imobil/confirmar?token=" + token;
+        String link = "http://localhost:8080/imobil/confirmar?token=" + token;
         emailSender.send(request.getUsername(), buildEmail(request.getNome(), link ));
-        return null;
 
     }
 
