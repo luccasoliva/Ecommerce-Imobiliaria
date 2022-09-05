@@ -13,7 +13,6 @@
 <p>Spring Actuator para expor e observar os endpoints(exclusivo para o admin)</p>
 <p>Utilização do LOMBOK para diminuir o código Boilerplate</p>
 <p>Banco de dados Relacional MySql na nuvem utlizando a AWS RDS e armazenamento das fotos dos imóveis no Firebase</p>
-<p>Deploy do Backend na Heroku</p>
 <hr>
 <h2>Documentação dos Endpoints no Postman</h2>
 <p>Postman: https://documenter.getpostman.com/view/21445395/VUjQnQGY</p>
