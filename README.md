@@ -2,8 +2,8 @@
 <p>Backend do projeto final do Bootcamp SoulCode Academy!</p>
 <p>O Usuário pode ter três tipos de roles: Admim, Consumidor e Vendedor</p>
 <p>Vendedores Registram imóveis e Consumidores pode agendar visitas</p>
-<p>Administradores tem acesso total e também possuem acesso à uma área especial</p>
-<p>Área do Admin possui Dashboards e tabelas para realizar CRUD nos usuários, imóveis e visitas. Além de contar com informações do Spring Actuator</p>
+<p>Administradores têm acesso total e também possuem acesso à uma área especial</p>
+<p>Área do Admin inclui Dashboards e tabelas para realizar CRUD nos usuários, imóveis e visitas. Além de contar com informações do Spring Actuator</p>
 <p>Projeto foi realizado em um squad</p>
 <p>Todos os dias úteis das 10:30 até 11:00 da manhã, realizamos Daily Meetings para discutir dificuldades e objetivos do dia.</p>
 <p>Todas as sextas-feiras discutindo e analisando o quê foi feito e decidindo quais serão as metas da próxima semana dando início a mais uma Sprint de tasks</p>
