@@ -11,7 +11,7 @@
 <hr>
 FrontEnd: https://github.com/luccasoliva/e-commerce-front-main
 <hr>
-Banco de dados MySQL
+Banco de dados MySQL no Docker | 
 Executar docker-compose.yml para iniciar o container
 <hr>
 <h2>O quê foi utilizado?</h2>
