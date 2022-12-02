@@ -27,4 +27,4 @@ Executar o arquivo {docker-compose.yml} para iniciar o container
 <p>Postman: https://documenter.getpostman.com/view/21445395/VUjQnQGY</p>
 <hr>
 <h2>Login e Senha de um usuário com a role de ADMIN, para testes.</h2>
-<p>Login: teste@gmail.com | Senha: 123</p>
+ 
