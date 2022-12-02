@@ -11,6 +11,9 @@
 <hr>
 FrontEnd: https://github.com/luccasoliva/e-commerce-front-main
 <hr>
+Banco de dados MySQL
+Executar docker-compose.yml para iniciar o container
+<hr>
 <h2>O quê foi utilizado?</h2>
 <p>Linguagem Java(JDK 17) com o Spring Boot(2.7.2)</p>
 <p>Authentication e Authorization com Spring Security e JWT</p>
