@@ -62,7 +62,7 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     
-    private boolean enabled = false;
+    private boolean enabled = true;
     @JsonIgnore
     private boolean locked = false;
 
