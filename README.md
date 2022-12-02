@@ -9,6 +9,8 @@
 <p>Todas as sextas-feiras discutindo e analisando o quê foi feito e decidindo quais serão as metas da próxima semana dando início a mais uma Sprint de tasks</p>
 <p>Utilizando sempre metodologias como KANBAN, Scrum e DevOps</p>
 <hr>
+FrontEnd: https://github.com/luccasoliva/e-commerce-front-main
+<hr>
 <h2>O quê foi utilizado?</h2>
 <p>Linguagem Java(JDK 17) com o Spring Boot(2.7.2)</p>
 <p>Authentication e Authorization com Spring Security e JWT</p>
