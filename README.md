@@ -12,7 +12,7 @@
 FrontEnd: https://github.com/luccasoliva/e-commerce-front-main
 <hr>
 Banco de dados MySQL no Docker | 
-Executar docker-compose.yml para iniciar o container
+Executar o arquivo {docker-compose.yml} para iniciar o container
 <hr>
 <h2>O quê foi utilizado?</h2>
 <p>Linguagem Java(JDK 17) com o Spring Boot(2.7.2)</p>
